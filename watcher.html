@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch VUE</title>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="passwd">
+        <p>{{mensaje}}</p>
+        <h3>{{passwd}}</h3>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+              passwd:" ",
+              mensaje: "Contraseña correcta",
+              passwdNovalidos:[
+                  "admin",
+                  "12345",
+                  "password"
+              ]
+            },
+            watch:{
+                passwd(nuevo){
+                    if (this.passwdNovalidos.indexOf(nuevo) > -1) {
+                        this.mensaje = "Contraseña no valida";
+                        return false
+                    }
+                    else{
+                        this.mensaje = "Contraseña valida"
+                    }
+                }
+            }
+        });
+        Vue.config.devtools = true
+    </script>
+</body>
+
+</html>

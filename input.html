@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gatitos</title>
+</head>
+
+<body>
+    <div id="app">
+        <input v-model="ancho" type="range">Ancho
+        <br>
+        <input v-model="alto" type="range">Alto
+        <br>
+        <p>{{url}}</p>
+        <h2>{{urlDinamica}}</h2>
+        <img :src="urlDinamica" :alt="tema">
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                tema: "Gatitos",
+                url: "http://placekitten.com",
+                ancho:50,
+                alto:50,
+            },
+            computed:{
+                urlDinamica(){
+                    return `${this.url}/${this.ancho *5}/${this.alto*5}`
+                }
+            }
+        });
+        Vue.config.devtools = true
+    </script>
+</body>
+
+</html>

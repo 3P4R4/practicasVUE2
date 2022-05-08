@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axios VUE</title>
+</head>
+
+<body>
+    <div id="app">
+        <form @submit.prevent="agregarTarea">
+            <input type="text" placeholder="Agrega tu tarea" v-model="agregar">
+            <button type="submit">Agregar</button>
+        </form><br>
+        <li v-for="i in tareas">{{i.title}}</li>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            mounted() {
+                axios.get(this.url).then(respuesta => {
+                    this.tareas = respuesta.data
+                }).catch(error=>console.log(error))
+            },                                   
+            data: {
+                url: "https://jsonplaceholder.typicode.com/todos",
+                tareas:[],
+                agregar:""
+            },
+            methods: {
+                agregarTarea(){
+                    axios.post(this.url,{
+                        title: this.agregar
+                    }).then(respuesta =>{
+                        this.tareas.unshift({
+                            title: this.agregar
+                        });
+                        this.agregar=""
+                    }).catch(error=>console.log(error))
+                }
+            },
+        });
+        Vue.config.devtools = true
+    </script>
+</body>
+
+</html>
